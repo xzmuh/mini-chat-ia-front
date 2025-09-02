@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap');
+
+:root{
+  --bg-1:#090015;
+  --bg-2:#12002A;
+  --bg-3:#1B003D;
+  --neon:#00E7FF;
+  --violet:#7A2BFF;
+  --ink:#EDEBFF;
+}
+
+html,body{height:100%;margin:0}
+body{background:#000;font-family:'Poppins',system-ui,sans-serif;overflow:hidden}
+
+app-root{height:100%;display:block}

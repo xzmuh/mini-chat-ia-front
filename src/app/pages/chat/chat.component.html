@@ -1,0 +1,27 @@
+<div class="chat">
+  <header>
+    <h1>Chat With Ollama</h1>
+  </header>
+
+  <main class="messages" #messagesEl>
+    <div
+      class="message"
+      *ngFor="let m of messages; trackBy: trackByFn"
+      [ngClass]="m.role">
+      <span class="sender">{{ m.role === 'user' ? 'You' : 'Ollama' }}</span>
+      <p>{{ m.content }}</p>
+    </div>
+
+  </main>
+
+  <footer class="input-box">
+    <input
+      [(ngModel)]="question"
+      placeholder="Type..."
+      (keyup.enter)="getResponseIA()"
+    />
+    <button (click)="getResponseIA()" [disabled]="loading">
+      {{ loading ? 'Thinking' : 'Send' }}
+    </button>
+  </footer>
+</div>
