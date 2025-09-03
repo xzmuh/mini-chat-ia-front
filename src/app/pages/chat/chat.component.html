@@ -1,27 +1,38 @@
 <div class="chat">
-  <header>
-    <h1>Chat With Ollama</h1>
+  <header class="header">
+    <h1>AI Chat</h1>
+    <span class="badge">llama3.2:latest</span>
+    <span class="status" aria-label="online"></span>
   </header>
 
-  <main class="messages" #messagesEl>
-    <div
-      class="message"
-      *ngFor="let m of messages; trackBy: trackByFn"
-      [ngClass]="m.role">
+  <main class="messages" #messagesEl aria-live="polite">
+    <div class="message" *ngFor="let m of messages; trackBy: trackByFn" [ngClass]="m.role">
       <span class="sender">{{ m.role === 'user' ? 'You' : 'Ollama' }}</span>
       <p>{{ m.content }}</p>
     </div>
-
   </main>
 
-  <footer class="input-box">
-    <input
-      [(ngModel)]="question"
-      placeholder="Type..."
-      (keyup.enter)="getResponseIA()"
-    />
-    <button (click)="getResponseIA()" [disabled]="loading">
-      {{ loading ? 'Thinking' : 'Send' }}
-    </button>
+  <footer class="inputbar">
+    <div class="input">
+      <textarea
+        [(ngModel)]="question"
+        placeholder="Escreva sua mensagem…"
+        rows="1"
+        (keydown.enter)="getResponseIA()"
+      ></textarea>
+      <button
+        (click)="getResponseIA()"
+        [disabled]="loading || !question?.trim()"
+        aria-label="Enviar mensagem"
+      >
+        <span class="btn-label" *ngIf="!loading">Send</span>
+        <span class="spinner" *ngIf="loading"></span>
+        <span class="btn-label" *ngIf="loading">Thinking…</span>
+      </button>
+      <button class="btn-label" (click)="improveText()" 
+        [disabled]="loading || !question?.trim()">
+        Improve ✦
+      </button>
+    </div>
   </footer>
 </div>

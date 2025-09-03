@@ -18,4 +18,8 @@ export class RagService {
   ask(question: string): Observable<AskResponse> {
     return this.http.post<AskResponse>(`${this.api}/chat/ask`, { question });
   }
+
+  improveText(question: string): Observable<AskResponse> {
+    return this.http.post<AskResponse>(`${this.api}/chat/improve`, { question });
+  }
 }

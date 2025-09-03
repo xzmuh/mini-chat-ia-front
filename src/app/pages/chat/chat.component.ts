@@ -55,6 +55,27 @@ export class ChatComponent {
     })
   }
 
+  improveText() {
+    const q = this.question.trim()
+    if (!q || this.loading) return
+
+    this.pushMessage('user', q)
+    this.question = ''
+    this.loading = true
+
+    this.ragService.improveText(q).subscribe({
+      next: (res) => {
+        this.pushMessage('ai', res.answer)
+        this.loading = false
+      },
+      error: (err) => {
+        this.pushMessage('ai', '❌ Erro ao buscar informações na IA')
+        console.error(err)
+        this.loading = false
+      }
+    })
+  }
+
   trackByFn(index: number, item: ChatMessage) {
     return item.ts
   }
